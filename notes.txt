@@ -51,3 +51,54 @@ Docker helps package your application code, runtime, dependencies and startup in
 - Container - A running instance of the image
 - Port Mapping - Makes the API inside the container accessible from your system
 
+Docker Commands:
+docker ps
+Check running containers
+
+docker ps -a
+Check all active/non-active containers
+
+docker build -t mlops-iris-image-cs .
+-t = tag name = name of the image
+
+docker run -d -p 8000:8000 --name mlops-cs-container mlops-iris-image-cs
+
+
+==================================
+Phase-3: Automated Testing and CI/CD with GitHUb actions
+==================================
+
+Our goal:
+Whenever we push code on GitHub, the system should automatically run tests and build the Docker image. Later we will extend the same pipeline to publish the image and deploy it
+
+1. Developer pushes the code
+2. GitHub actions starts the workflow
+3. Triggered by a push or pull request
+4. Run tests and validate the model API behavior
+5. Build Image and verify Docker packaging
+
+
+Part-1: What are CI/CD ?
+CI - Continuous Integration - Automatically validates the code changes through tests and build checks
+CD - Continous Delivery - Keep changes ready to release, with production release potentially requiring approval
+CD - Continuous Deployment - Automatically releases changes go production when all required checks pass
+
+
+Automation Testing + Docker Build
+- pytest + FastAPI TestClient + GitHub Actions
+
+- mlops
+-- tests
+---- test_api.py
+-- .github
+---- workflows
+------- ci.yaml
+
+Install two dependencies:
+pytest - It discovers and runs automated tests, report failures
+httpx - FastAPI TestClient uses HTTPX to simulate HTTP requests to your application without requiring you to start a separate web server
+
+pip install httpx pytest
+
+Now test the test cases
+python -m pytest -v
