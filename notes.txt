@@ -102,3 +102,15 @@ pip install httpx pytest
 
 Now test the test cases
 python -m pytest -v
+
+
+Create the GitHub actions workflow
+
+Push the project to GitHub
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/sqb-codes/mlops-cs-first-pipeline.git
+git push -u origin main
+
