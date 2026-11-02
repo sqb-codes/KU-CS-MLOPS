@@ -24,10 +24,10 @@ y = iris.target
 
 X_train, X_test, y_train, y_test = train_test_split(X, 
                                                     y, 
-                                                    test_size=0.80)
+                                                    test_size=0.20)
 
 
-n_estimators = 1
+n_estimators = 10
 random_state = 42
 
 # Model settings we want to track in MLFlow
@@ -35,7 +35,7 @@ model_parameters = {
     "model_type": "RandomForestClassifier",
     "n_estimators": n_estimators,
     "random_state": random_state,
-    "test_size": 0.80
+    "test_size": 0.20
 }
 
 # Start a tracked training run
@@ -58,6 +58,15 @@ with mlflow.start_run() as run:
     accuracy = accuracy_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred, average="macro", zero_division=0)
     recall = recall_score(y_test, y_pred, average="macro", zero_division=0)
+
+    # Model Quality Gate
+    MIN_TEST_ACCURACY = 0.90
+    if accuracy < MIN_TEST_ACCURACY:
+        raise ValueError(
+            f"Model rejected: test accuracy: {accuracy:.2f} is below {MIN_TEST_ACCURACY}"
+        )
+
+    print("Model Quality Gate Passed. Model is eligible for registration")
 
     # Log the evaluated results so that different runs can be compared
     mlflow.log_metrics({
