@@ -1,0 +1,157 @@
+==================================
+Phase-1: Machine Learning Foundation for MLOps
+==================================
+
+Step-1: Create virtual env
+python -m venv kiet-env
+
+Step-2: Activate virtual env
+In Mac:
+source kiet-env/bin/activate
+
+In Windows:
+kiet-env\Scripts\activate
+
+Step-3: Create working directory and switch to that
+mkdir mlops-first-pipeline
+cd mlops-first-pipeline
+
+Step-4: Install required packages
+pip install -r requirements.txt
+
+Step-5: Implement a simple machine learning model
+Step-6: Train and Save the model
+python train.py
+
+Step-7: Implement FastAPI and create endpoints
+Step-8: Start the API
+uvicorn main:app --reload
+Or
+python -m uvicorn main:app --reload
+
+
+==================================
+Phase-2: Virtualization with Docker
+==================================
+
+Why we need Docker ?
+- Imagine you are running your code on your laptop with a different programming version and another user is working on a different version...
+
+Reason of failures:
+- Using different programming version
+- Using different version of libraries like scikit-learn, FastAPI
+- Missing Python packages
+- Different OS dependencies
+
+Docker helps package your application code, runtime, dependencies and startup instructions into a standardized image
+
+4 major requirements:
+- Dockerfile - Set of instructions for packaging ML application
+- Image - Packaged reusable application artifact
+- Container - A running instance of the image
+- Port Mapping - Makes the API inside the container accessible from your system
+
+Docker Commands:
+docker ps
+Check running containers
+
+docker ps -a
+Check all active/non-active containers
+
+docker build -t mlops-iris-image-cs .
+-t = tag name = name of the image
+
+docker run -d -p 8000:8000 --name mlops-cs-container mlops-iris-image-cs
+
+
+==================================
+Phase-3: Automated Testing and CI/CD with GitHUb actions
+==================================
+
+Our goal:
+Whenever we push code on GitHub, the system should automatically run tests and build the Docker image. Later we will extend the same pipeline to publish the image and deploy it
+
+1. Developer pushes the code
+2. GitHub actions starts the workflow
+3. Triggered by a push or pull request
+4. Run tests and validate the model API behavior
+5. Build Image and verify Docker packaging
+
+
+Part-1: What are CI/CD ?
+CI - Continuous Integration - Automatically validates the code changes through tests and build checks
+CD - Continous Delivery - Keep changes ready to release, with production release potentially requiring approval
+CD - Continuous Deployment - Automatically releases changes go production when all required checks pass
+
+
+Automation Testing + Docker Build
+- pytest + FastAPI TestClient + GitHub Actions
+
+- mlops
+-- tests
+---- test_api.py
+-- .github
+---- workflows
+------- ci.yaml
+
+Install two dependencies:
+pytest - It discovers and runs automated tests, report failures
+httpx - FastAPI TestClient uses HTTPX to simulate HTTP requests to your application without requiring you to start a separate web server
+
+pip install httpx pytest
+
+Now test the test cases
+python -m pytest -v
+
+
+Create the GitHub actions workflow
+
+Push the project to GitHub
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/sqb-codes/mlops-cs-first-pipeline.git
+git push -u origin main
+
+==================================
+Phase-4: MLFlow - Experiment Tracking and Model Registry
+==================================
+
+Progress so far:
+1. Train model and create FastAPI aaplication - Done
+2. Containerize the application with Docker - Done
+3. Automated tests and GitHub actions CI - Done
+4. Experiment tracking and model registry with MLFlow - Current
+5. Container registry and Cloud Deployment
+6. Production monitoring and drift detection
+7. Automated retraining and model promotion
+
+
+Why we need MLFlow ?
+- Imagine you train the same dataset ten times, changing the model parameters, dataset version
+- Without experiment tracking we might end up with file names model_v1.joblib, model_v2.joblib and so on...
+- MLFlow helps us maintain that record
+
+
+4 Major Concepts:
+- Experiment - Collection of related training runs
+- Run - One execution of training with specific parameters and results
+- Artifact - saved file produced by a run
+- Model Registry - Managed catalog of registered models and their versions
+
+
+Install MLFlow
+pip install mlflow
+
+
+Start MLFlow Tracking Server
+mlflow server \
+--backend-store-uri sqlite:///mlflow.db \
+--host 0.0.0.0 \
+--port 6001
+
+Open browser and test URL:
+http://0.0.0.0:6001
+
+

@@ -26,3 +26,5 @@ kiet-env/
 !.env.example
 *.log
 *.tmp
+
+mlartifacts/

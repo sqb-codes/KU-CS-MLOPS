@@ -114,3 +114,54 @@ git branch -M main
 git remote add origin https://github.com/sqb-codes/mlops-cs-first-pipeline.git
 git push -u origin main
 
+==================================
+Phase-4: MLFlow - Experiment Tracking and Model Registry
+==================================
+
+Progress so far:
+1. Train model and create FastAPI aaplication - Done
+2. Containerize the application with Docker - Done
+3. Automated tests and GitHub actions CI - Done
+4. Experiment tracking and model registry with MLFlow - Current
+5. Container registry and Cloud Deployment
+6. Production monitoring and drift detection
+7. Automated retraining and model promotion
+
+
+Why we need MLFlow ?
+- Imagine you train the same dataset ten times, changing the model parameters, dataset version
+- Without experiment tracking we might end up with file names model_v1.joblib, model_v2.joblib and so on...
+- MLFlow helps us maintain that record
+
+
+4 Major Concepts:
+- Experiment - Collection of related training runs
+- Run - One execution of training with specific parameters and results
+- Artifact - saved file produced by a run
+- Model Registry - Managed catalog of registered models and their versions
+
+Install MLFlow
+pip install mlflow
+
+
+Start MLFlow Tracking Server
+mlflow server \
+--backend-store-uri sqlite:///mlflow.db \
+--host 127.0.0.1 \
+--port 6001
+
+Open browser and test URL:
+http://127.0.0.1:6001
+
+
+Evaluate and promote model vesions
+- Right now FastAPI application loads a model from a local file
+- This works for demo, but it becomes harder to manage when you have multiple model verions
+
+Example:
+Version-1: Initial model
+Version-2: retrained model
+Version-3: improved model
+
+We can assign the alias champion to the model version we want our application to use
+
