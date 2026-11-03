@@ -179,7 +179,7 @@ mlflow server \
 
 
 Build the updated image:
-docker build -t iris-ml-api-cs:v2
+docker build -t iris-ml-api-cs:v2 .
 
 
 Start the container:

@@ -1,2 +1,5 @@
 __pycache__
 .DSStore
+
+mlops-first-pipeline/__pycache__
+mlops-first-pipeline/.pytest_cache

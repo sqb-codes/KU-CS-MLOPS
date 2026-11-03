@@ -5,3 +5,4 @@ joblib
 pydantic
 pytest
 httpx
+mlflow
