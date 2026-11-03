@@ -175,7 +175,7 @@ mlflow server \
 --backend-store-uri sqlite:///mlflow.db \
 --host 0.0.0.0 \
 --port 6001 \
---allowed-hosts "host.docker.internal,host.docker.internal:7001"
+--allowed-hosts "host.docker.internal,host.docker.internal:6001"
 
 
 Build the updated image:
