@@ -189,3 +189,12 @@ docker run -d \
 -e MLFLOW_TRACKING_URI=http://host.docker.internal:6001 \
 iris-ml-api-cs:v2
 
+
+Automatically build and publish Docker images to GHCR:
+GHCR - GitHub Container Registry
+
+Pull Request to main - Tests run + Build Image
+Push to main - Tests run + Build Image + Publish Image
+
+
+
