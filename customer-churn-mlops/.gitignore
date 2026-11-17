@@ -1,0 +1,25 @@
+# Raw/processed data: never commit datasets (licensing, size, privacy).
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Generated training outputs.
+models/*
+!models/.gitkeep
+reports/
+
+# Local MLflow tracking store and artifacts.
+mlflow.db
+mlruns/
+mlartifacts/
+
+# Python / tooling caches.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Secrets.
+.env
+.env.*
+!.env.example

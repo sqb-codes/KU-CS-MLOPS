@@ -29,17 +29,17 @@ def client():
     with TestClient(app) as test_client:
         yield test_client
 
-def test_health_endpoint():
+def test_health_endpoint(client):
     """
     Verify that the application is ruuning and can respond to a health-check request
     """
 
     response = client.get("/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "healthy"}
+    assert response.json()["status"] == "healthy"
     assert response.json()["model_version"] == "test-version"
 
-def test_valid_iris_prediction():
+def test_valid_iris_prediction(client):
     """
     Verify that we are getting valid predictions
     """

@@ -99,4 +99,7 @@ def create_app(model_loader: Callable=load_mlflow_model,
             "class_name": ["setosa", "versicolor", "virginica"][prediction]
         }
 
+    return app
+
+
 app = create_app()

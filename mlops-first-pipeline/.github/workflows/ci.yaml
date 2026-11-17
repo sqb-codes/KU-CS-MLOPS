@@ -59,7 +59,7 @@ jobs:
       runs-on: ubuntu-latest
 
       # Publish only when code is pushed to main
-      if: github.event_name == 'push' && github.ref == 'ref/heads/main'
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       steps:
         # Download repo source code
         - name: Checkout source code

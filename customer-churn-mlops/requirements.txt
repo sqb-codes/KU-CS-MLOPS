@@ -1,0 +1,22 @@
+
+# Data manipulation
+pandas
+numpy
+
+# Machine learning
+scikit-learn
+joblib
+
+# Experiment tracking and model registry
+mlflow
+# Secure model serialisation used by MLflow's sklearn flavour
+skops
+
+# API (used in later steps)
+fastapi
+uvicorn[standard]
+pydantic
+
+# Testing
+pytest
+httpx
